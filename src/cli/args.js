@@ -10,5 +10,3 @@ export const parseArgs = () => {
     });
     return result;
 };
-
-parseArgs();
