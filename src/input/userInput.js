@@ -1,6 +1,6 @@
 import readline from 'readline';
 import {up, cd} from '../fs/directory.js';
-
+import {osApi} from '../os/os-api.js';
 export const handleUserInput = (username, printCwd) => {
 
     const lineReader = readline.createInterface({
@@ -24,6 +24,12 @@ export const handleUserInput = (username, printCwd) => {
                 console.log('Invalid user input: cd command requires a path');
             } else {
                 await cd(args[0]);
+            }
+        } else if (cmd === 'os') {
+            if (args.length === 0) {
+                console.log('Invalid user input: os command requires an option');
+            } else {
+                await osApi(args[0]);
             }
         } else if (!cmd) {
             console.log('Invalid user input, please try again');
