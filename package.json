@@ -1,0 +1,17 @@
+{
+  "name": "nodejs-task-2-file-manager",
+  "version": "1.0.0",
+  "description": "This repository is the part of nodejs-assignments https://github.com/AlreadyBored/nodejs-assignments/blob/main/assignments/file-manager/assignment.md, current branch is for task-2 - File Manager",
+  "engines": {
+    "node": ">=22.14.0"
+  },
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karlovich/nodejs-2025q2.git"
+  },
+  "author": "karlovich"
+}
