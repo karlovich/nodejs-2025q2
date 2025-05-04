@@ -1,7 +1,9 @@
 import readline from 'readline';
 import {up, cd} from '../fs/directory.js';
 import {osApi} from '../os/os-api.js';
-export const handleUserInput = (username, printCwd) => {
+import {fileOperations, processFileOperation} from '../fs/file.js';
+
+export const handleUserInput = (username) => {
 
     const lineReader = readline.createInterface({
         input: process.stdin,
@@ -9,10 +11,15 @@ export const handleUserInput = (username, printCwd) => {
         prompt: '>'
     });
 
-    lineReader.prompt();
+    const promptUserInput = () => {
+        console.log(`You are currently in ${process.cwd()}`);
+        lineReader.prompt();
+    }
+
+    promptUserInput();
 
     lineReader.on('line', async (inputLine) => {
-        const input = inputLine.trim();
+        const input = inputLine.trim().toLowerCase();
         const [cmd, ...args] = input.split(' ');
         if(cmd === '.exit') {
             exitFromApp(username);
@@ -31,14 +38,16 @@ export const handleUserInput = (username, printCwd) => {
             } else {
                 await osApi(args[0]);
             }
-        } else if (!cmd) {
+        } else if (fileOperations.indexOf(cmd) !== -1 ) {
+            processFileOperation(cmd, promptUserInput, ...args);
+        }
+        else if (!cmd) {
             console.log('Invalid user input, please try again');
         } else {
             console.log('Cmd is unknown, awaiting implementation');
         }
 
-        printCwd();
-        lineReader.prompt();
+        promptUserInput();
     });
 
     lineReader.on('SIGINT', () => {
